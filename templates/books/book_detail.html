@@ -1,0 +1,17 @@
+{% extends '_base.html' %}
+
+{% block title %}
+  {{ book.title }}
+{% endblock %}
+
+{% block content %}
+  <div class="book-detail">
+    <h4>{{ book.title }}</h4>
+    <p>By: {{ book.author.name }}</p>
+    <p>Price: {{ book.price }}</p>
+    <hr>
+    <a class="btn btn-success" href="{% url 'book_update' book.id %}">Update</a>
+    <a class="btn btn-danger" href="{% url 'book_delete' book.id %}">Delete</a>
+  </div>
+  
+{% endblock %}

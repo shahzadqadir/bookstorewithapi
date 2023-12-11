@@ -1,0 +1,22 @@
+{% extends '_base.html' %}
+
+{% block title %}
+  Books List
+{% endblock %}
+
+{% block content %}
+  <div class="books-container">
+    <ul>
+      {% for book in books %}
+        <li>
+          <a href="{% url 'book_details' book.id %}"><strong>{{book.title }}</strong> by {{book.author.name}}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+  
+  <div class="button-box">
+    <a class="btn btn-primary" href="{% url 'book_add' %}">Add Book</a>
+    <a class="btn btn-primary" href="{% url 'books_add_from_file' %}">Add Books From File</a>
+  </div>
+{% endblock %}

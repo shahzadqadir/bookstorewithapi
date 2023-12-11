@@ -1,0 +1,18 @@
+{% extends '_base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block title %}
+  Bookstore:Add Book
+{% endblock %}
+
+{% block content %}
+  <h4>Add a new book</h4>
+
+  <form action="" method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit">Add Book</button>
+  </form>
+  
+{% endblock %}
