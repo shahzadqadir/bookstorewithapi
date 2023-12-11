@@ -4,4 +4,4 @@ To demonstrate use of
 * Class Based and Function Based Views
 * Django Forms
 * Bootstrap for styling
-** Looking into add API support using DRF
+    * Looking into add API support using DRF
