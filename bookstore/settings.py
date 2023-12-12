@@ -45,10 +45,12 @@ INSTALLED_APPS = [
     'allauth.account',
     'crispy_forms',
     'crispy_bootstrap5',
+    'rest_framework',
 
     # Local Apps
     'users.apps.UsersConfig',
     'books.apps.BooksConfig',
+    'apis.apps.ApisConfig',
 ]
 
 MIDDLEWARE = [
@@ -161,3 +163,6 @@ SITE_ID = 1
 
 # crispy forms
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+
+# rest framework

@@ -23,4 +23,6 @@ urlpatterns = [
     path("accounts/", include("allauth.urls")),
     path("accounts/", include("users.urls")),
     path("books/", include("books.urls")),
+    # api app
+    path("api/", include("apis.urls")),
 ]
