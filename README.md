@@ -5,4 +5,4 @@ To demonstrate use of
 * Django Forms
 * Bootstrap for styling
   
-* Looking into add API support using DRF
+* Added function based API support for both Author, and Book models
