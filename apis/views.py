@@ -30,7 +30,7 @@ def books(request):
 
 
 @csrf_exempt
-def book_detail(request, id):
+def book(request, id):
     try:
         book = Book.objects.get(id=id) 
     except Exception:
@@ -49,3 +49,44 @@ def book_detail(request, id):
     if request.method == "DELETE":
         book.delete()
         return JsonResponse({"message":"book deleted successfully."})
+    
+
+@csrf_exempt
+def authors(request):
+    if request.method == "GET":
+        authors = Author.objects.all()
+        authors_dicts = [model_to_dict(author) for author in authors]
+        return JsonResponse({"data": authors_dicts})
+    
+
+@csrf_exempt
+def author(request, id):
+    try:
+        author = Author.objects.get(id=id)
+    except Exception:
+        return JsonResponse({"error": "author not found."})
+    if request.method == "GET":
+        return JsonResponse({"data": model_to_dict(author)})
+    if request.method == "PUT":
+        new_author_details = json.loads(request.body)
+        if len(new_author_details) < 2:
+            return JsonResponse({"error": "both author name and email are required."})
+        author.name = new_author_details["name"]
+        author.email = new_author_details["email"]
+        author.save()
+        return JsonResponse({"new_author_details": model_to_dict(author), "success": "author details updated."})
+    if request.method == "DELETE":
+        if len(author.books.all()) > 0:
+            return JsonResponse({"error": "can't delete, author has books added"})
+        author.delete()
+        return JsonResponse({"success", "author deleted successfully."}, safe=False)
+    
+
+def author_books(request, id):
+    try:
+        author = Author.objects.get(id=id)
+    except Author.DoesNotExist:
+        return JsonResponse({"error": "author not found."})
+    author_books = author.books.all()
+    author_books_dicts = [model_to_dict(book) for book in author_books]
+    return JsonResponse({"data":author_books_dicts})

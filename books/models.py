@@ -12,7 +12,7 @@ class Author(models.Model):
 
 class Book(models.Model):
     title = models.CharField(max_length=255)
-    author = models.ForeignKey(Author, on_delete=models.CASCADE)
+    author = models.ForeignKey(Author, on_delete=models.PROTECT, related_name="books")
     price = models.DecimalField(max_digits=5, decimal_places=2)
 
     def __str__(self):
