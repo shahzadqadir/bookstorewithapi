@@ -4,6 +4,7 @@ from django.http import JsonResponse, QueryDict
 from django.forms.models import model_to_dict
 from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
 
 from books import helper_functions as hf
 
@@ -47,8 +48,10 @@ def book(request, id):
         book.save()
         return JsonResponse({"new_details": model_to_dict(book),"success":"book details updated"})
     if request.method == "DELETE":
-        book.delete()
-        return JsonResponse({"message":"book deleted successfully."})
+        if request.user.is_staff or request.user.is_superuser:
+            book.delete()
+            return JsonResponse({"message": f"{book.title} deleted successfully."})
+        return JsonResponse({"message":"User not authorized to perform this action."})
     
 
 @csrf_exempt
